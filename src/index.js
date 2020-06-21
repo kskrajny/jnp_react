@@ -9,19 +9,23 @@ import { Provider } from 'react-redux';
 const initialState = {
     city: undefined,
     weatherData: undefined,
+    type: undefined,
     nr: undefined
 }
 
 export const reducer = (state = initialState, action) => {
+    console.log(action.type)
     switch(action.type){
         case 'NEW_WEATHER':
             return action.payload
+        case 'LOC_ERROR':
+            return state
         default:
             return state
     }
 }
 
-const store = createStore(reducer)
+let store = createStore(reducer);
 
 ReactDOM.render(
     <Provider store={store}>
