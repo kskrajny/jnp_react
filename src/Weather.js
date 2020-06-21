@@ -18,7 +18,7 @@ function Weather(props) {
     const boxes = () => {
         return props.state.weatherData[props.state.type].map(obj => (
             <div key={obj.dt}>
-                <p>{getReadableTime(obj.dt)}</p>
+                <p>{getReadableTime(obj.dt, props.state.type)}</p>
                 <img src={getUrl(obj)} alt="icon"></img>
             </div>
         ))

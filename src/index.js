@@ -9,8 +9,7 @@ import { Provider } from 'react-redux';
 const initialState = {
     city: undefined,
     weatherData: undefined,
-    type: undefined,
-    nr: undefined
+    type: undefined
 }
 
 export const reducer = (state = initialState, action) => {

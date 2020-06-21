@@ -19,7 +19,7 @@ export const cityOnClick = async (cities, props) => {
     const typeElem = document.getElementById('type')
     const type = typeElem.options[typeElem.selectedIndex].value
     let data;
-    if(props.city !== city)
+    if(props.city !== city || props.type != type)
         data = await getWeather(cities, city, type)
     else
         data = props.weatherData
@@ -29,7 +29,6 @@ export const cityOnClick = async (cities, props) => {
             city: city,
             weatherData: data,
             type: type,
-            nr: 0
         }
     })
 }
@@ -58,6 +57,10 @@ export const locationOnClick = async (props) => {
     }
 }
 
-export const getReadableTime = (unix_timestamp) => {
-    return (new Date(unix_timestamp * 1000)).toLocaleDateString()
+export const getReadableTime = (unix_timestamp, type) => {
+    const date = new Date(unix_timestamp * 1000)
+    if(type === 'hourly')
+        return date.toLocaleTimeString()
+    else
+        return date.toLocaleDateString()
 }

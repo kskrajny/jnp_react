@@ -41,8 +41,7 @@ const mapStatetoProps = state => {
     return {
         city: state.city,
         weatherData: state.weatherData,
-        type: state.type,
-        nr: state.nr
+        type: state.type
     }
 }
 
