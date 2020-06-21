@@ -10,16 +10,15 @@ const getWeather = async (cities, nameToSearch, type) => {
     const lon = cityData.coord.lon
     return fetch('https://api.openweathermap.org/data/2.5/' +
         'onecall?lat=' + lat + '&lon=' + lon + '&exclude=current,minutely,' +
-        counterType + '&appid=4bf9ca8e75181f37d0ae3b94bc24c530')
+        counterType + '&appid=4bf9ca8e75181f37d0ae3b94bc24c530&units=metric')
         .then((res) => res.json())
 }
 
-export const cityOnClick = async (cities, props) => {
-    const city = document.getElementById('city').value
+export const cityOnClick = async (cities, props, city) => {
     const typeElem = document.getElementById('type')
     const type = typeElem.options[typeElem.selectedIndex].value
     let data;
-    if(props.city !== city || props.type != type)
+    if(props.city !== city || props.type !== type)
         data = await getWeather(cities, city, type)
     else
         data = props.weatherData

@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import Weather from './Weather';
-import { cityOnClick , locationOnClick } from './functions'
+import Auto from './Auto';
+import OtherChoices from './OtherChoices';
 import { connect } from 'react-redux';
 
 let cities = require('./city.list.json')
@@ -9,30 +10,13 @@ let cities = require('./city.list.json')
 function App(props) {
     return (
     <div className="App">
-      <header className="App-header">
-
-          <label>
-              City:
-              <input id='city' type="text" name="city" />
-          </label>
-
-          <label htmlFor="type">Type:</label>
-          <select name="type" id="type">
-              <option value="hourly">2/h</option>
-              <option value="daily">7/d</option>
-          </select>
-
-          <button onClick={() => cityOnClick(cities, props)}>
-              get weather by city
-          </button>
-
-          <button onClick={() => locationOnClick(props)}>
-              get weather by location
-          </button>
-
-          <Weather state={props}/>
-
-      </header>
+        <menu>
+            <OtherChoices state={props}/>
+            <Auto state={props} cities={cities}/>
+        </menu>
+        <result>
+            <Weather state={props}/>
+        </result>
     </div>
   );
 }

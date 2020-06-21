@@ -24,7 +24,7 @@ export const reducer = (state = initialState, action) => {
     }
 }
 
-let store = createStore(reducer);
+let store = createStore(reducer)
 
 ReactDOM.render(
     <Provider store={store}>
