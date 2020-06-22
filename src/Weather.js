@@ -1,11 +1,12 @@
 import React from 'react';
-import './Weather.css'
 import { getReadableTime } from './functions'
 import {send_share} from "./tenorFunctions";
+import Scroll from 'react-scroll';
+
+let Element = Scroll.Element;
 
 const getImgCode = (obj) => {
     return obj.weather[0].icon
-    //return props.state.weatherData[props.state.type][props.state.nr].weather[0].icon
 }
 
 const getUrl = (obj) => {
@@ -13,15 +14,15 @@ const getUrl = (obj) => {
 }
 
 function Weather(props) {
-    if(props.state.weatherData === undefined)
+    if(props.data.weatherData === undefined)
         return <div className="Weather"> What do you want to see ? </div>
 
     const boxes = () => {
-        return props.state.weatherData[props.state.type].map(obj => (
-            <div key={obj.dt}>
-                <p>{getReadableTime(obj.dt, props.state.type)}</p>
+        return props.data.weatherData[props.data.type].map(obj => (
+            <Element>
+                <p>{getReadableTime(obj.dt, props.data.type)}</p>
                 <img src={getUrl(obj)} alt="icon"/>
-            </div>
+            </Element>
         ))
     }
 
@@ -37,21 +38,21 @@ function Weather(props) {
     let minTemp = 50
     let maxTemp = -50
     // eslint-disable-next-line
-    props.state.weatherData[props.state.type].map(obj => {
+    props.data.weatherData[props.data.type].map(obj => {
         if(obj.weather[0].main === 'Rain') rain = 0
-        if(props.state.type === 'hourly') {
-            let t = parseInt(obj.temp)
+        if(props.data.type === 'hourly') {
+            let t = parseFloat(obj.temp)
             if (t < 15 || t > 30) temp = 0
             sumTemp += t
             numberOfTemps++
             minTemp = (minTemp > t) ? t : minTemp
             maxTemp = (maxTemp < t) ? t : maxTemp
         }
-        if(props.state.type === 'daily') {
-            let tMin = parseInt(obj.temp.min)
-            let tMax = parseInt(obj.temp.max)
-            let tDay = parseInt(obj.temp.day)
-            let tNight = parseInt(obj.temp.night)
+        if(props.data.type === 'daily') {
+            let tMin = parseFloat(obj.temp.min)
+            let tMax = parseFloat(obj.temp.max)
+            let tDay = parseFloat(obj.temp.day)
+            let tNight = parseFloat(obj.temp.night)
             if(tMin < 15 || tMax > 30)
                 temp = 0
             sumTemp += tDay + tNight
@@ -80,13 +81,20 @@ function Weather(props) {
 
     return (
         <div className="Weather">
-            <p>{avgTemp}</p>
-            <p>{minTemp}</p>
-            <p>{maxTemp}</p>
-            <p>{props.state.city}</p>
-            <p>{weatherComment}</p>
-            <img id="tenor" alt="tenor"/>
-            {boxes()}
+            <p>Weather in {props.data.city} - {weatherComment}</p>
+            <p1>
+                avg:{avgTemp.toFixed(2)}<sup>o</sup>C
+                min:{minTemp.toFixed(2)}<sup>o</sup>C
+                max:{maxTemp.toFixed(2)}<sup>o</sup>C
+            </p1>
+            <Element name="test7" className="element" id="containerElement" style={{
+                position: 'relative',
+                height: '200px',
+                overflow: 'scroll',
+                marginBottom: '100px'
+            }}>
+                {boxes()}
+            </Element>
         </div>
     )
 }

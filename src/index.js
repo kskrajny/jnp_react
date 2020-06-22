@@ -17,7 +17,8 @@ export const reducer = (state = initialState, action) => {
     switch(action.type){
         case 'NEW_WEATHER':
             return action.payload
-        case 'LOC_ERROR':
+        case 'ERROR':
+            alert('ERROR')
             return state
         default:
             return state
