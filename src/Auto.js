@@ -1,17 +1,52 @@
 import React from 'react';
 import ReactAutocomplete from 'react-autocomplete'
-import { cityOnClick } from './functions';
+import {cityOnClick, locationOnClick} from './functions';
 import { throttle, debounce } from "throttle-debounce";
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+
+let cities = require('./city.list.json')
+
+function setStateOfWaiting(bool){
+    this.setState({
+        loading: bool
+    })
+}
+
+class Waiting extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            loading: false
+        }
+        setStateOfWaiting = setStateOfWaiting.bind(this)
+    }
+
+    render() {
+        if(!this.state.loading)
+            return <div> ready to work </div>
+        return (
+            <Loader
+                type="Puff"
+                color="#00BFFF"
+                height={20}
+                width={20}
+                timeout={0}
+            />
+        )
+    }
+}
 
 class Auto extends React.Component {
 
     constructor (props) {
         super(props)
-        this.cityNames = this.props.cities.map(obj => {
+        this.cityNames = [ ...new Set(cities.map(obj => {
             return obj.name
-        }).slice(1, 100)
+        }))]
         this.state = {
-            value: ''
+            value: '',
         }
         this.handleInput = evt => {
             const value = evt.target.value
@@ -19,13 +54,20 @@ class Auto extends React.Component {
         }
         this.handleInputThrottled = throttle(200, this.setState)
         this.handleInputDebounced = debounce(20, this.handleInputThrottled)
-
     }
 
     render() {
         return (
             <div>
-                <button id='getByCity' onClick={() => cityOnClick(this.props.cities, this.props.data, this.state.value)}>
+                <Waiting />
+                <button onClick={() =>
+                    locationOnClick(cities, this.props.data, setStateOfWaiting)
+                }>
+                    get weather by location
+                </button>
+                <button id='getByCity' onClick={() =>
+                    cityOnClick(cities, this.props.data, this.state.value, setStateOfWaiting)
+                }>
                     get weather by city
                 </button>
                 <ReactAutocomplete
@@ -33,12 +75,7 @@ class Auto extends React.Component {
                     shouldItemRender={(item, value) => {
                         item = item.toLowerCase()
                         value = value.toLowerCase()
-                        if(value.length > item.length) return false
-                        for(let i=0;i<value.length;i++) {
-                            if(item[i] !== value[i])
-                                return false
-                        }
-                        return true
+                        return item.indexOf(value) === 0
                     }}
                     getItemValue={item => item}
                     renderItem={(item, highlighted) =>

@@ -3,9 +3,6 @@ import './App.css';
 import Weather from './Weather';
 import Auto from './Auto';
 import { connect } from 'react-redux';
-import {locationOnClick} from "./functions";
-
-let cities = require('./city.list.json')
 
 function App(props) {
     return (
@@ -17,12 +14,7 @@ function App(props) {
                     <option value="daily">7/d</option>
                 </select>
             </div>
-            <div>
-                <button onClick={() => locationOnClick(props)}>
-                    get weather by location
-                </button>
-            </div>
-            <Auto data={props} cities={cities}/>
+            <Auto data={props}/>
         </menu>
         <img id="tenor" alt=""/>
         <Weather data={props}/>
@@ -32,6 +24,7 @@ function App(props) {
 
 const mapStatetoProps = state => {
     return {
+        history: state.history,
         city: state.city,
         weatherData: state.weatherData,
         type: state.type

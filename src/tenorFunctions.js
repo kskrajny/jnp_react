@@ -19,6 +19,5 @@ export const send_share = async (search_term) => {
             else reject(res)
         })
     })
-    console.log(promise.results[0].media[0])
     document.getElementById('tenor').src = promise.results[0].media[0]['tinygif'].url
 }

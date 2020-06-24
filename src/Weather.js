@@ -17,15 +17,12 @@ function Weather(props) {
     if(props.data.weatherData === undefined)
         return <div className="Weather"> What do you want to see ? </div>
 
-    const boxes = () => {
-        return props.data.weatherData[props.data.type].map(obj => (
-            <Element>
-                <p>{getReadableTime(obj.dt, props.data.type)}</p>
-                <img src={getUrl(obj)} alt="icon"/>
-            </Element>
-        ))
-    }
-
+    const boxes = props.data.weatherData[props.data.type].map(obj => (
+        <Element key={obj.dt}>
+            <p>{getReadableTime(obj.dt, props.data.type)}</p>
+            <img src={getUrl(obj)} alt="icon"/>
+        </Element>
+    ))
     /* check if weather will be nice */
     /* points */
     let rain = 1
@@ -82,18 +79,18 @@ function Weather(props) {
     return (
         <div className="Weather">
             <p>Weather in {props.data.city} - {weatherComment}</p>
-            <p1>
+            <div className='temp'>
                 avg:{avgTemp.toFixed(2)}<sup>o</sup>C
                 min:{minTemp.toFixed(2)}<sup>o</sup>C
                 max:{maxTemp.toFixed(2)}<sup>o</sup>C
-            </p1>
+            </div>
             <Element name="test7" className="element" id="containerElement" style={{
                 position: 'relative',
                 height: '200px',
                 overflow: 'scroll',
                 marginBottom: '100px'
             }}>
-                {boxes()}
+                {boxes}
             </Element>
         </div>
     )

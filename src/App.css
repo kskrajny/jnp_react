@@ -18,7 +18,7 @@ menu {
   justify-content: center;
   align-content: center;
   justify-self: stretch;
-  padding: 0px;
+  padding: 0;
 }
 
 .Weather {
@@ -30,7 +30,7 @@ menu {
   align-content: center;
 }
 
-p1 {
+.temp {
   padding: 30px;
   justify-self: stretch;
   display: block;

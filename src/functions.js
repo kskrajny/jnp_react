@@ -2,6 +2,10 @@ const searchCityByName = (nameToSearch) => {
     return (elem) => (nameToSearch === elem.name)
 }
 
+const searchCityByCoords = (lat, lon) => {
+    return (elem) => (lat === elem.coord.lat && lon === elem.coord.lon)
+}
+
 const getWeather = async (cities, nameToSearch, type) => {
     const cityData = cities.find(searchCityByName(nameToSearch))
     const counterType = (type === 'hourly') ? 'daily' : 'hourly'
@@ -18,28 +22,60 @@ const getWeather = async (cities, nameToSearch, type) => {
         })
 }
 
-export const cityOnClick = async (cities, props, city) => {
+const getWeatherByCoords = async (cities, lat, lon, type) => {
+    const cityData = cities.find(searchCityByCoords(lat, lon))
+    const counterType = (type === 'hourly') ? 'daily' : 'hourly'
+    if(cityData === undefined) return undefined
+    const name = cityData.name
+    return {name: name, fetch: fetch('https://api.openweathermap.org/data/2.5/' +
+        'onecall?lat=' + lat + '&lon=' + lon + '&exclude=current,minutely,' +
+        counterType + '&appid=4bf9ca8e75181f37d0ae3b94bc24c530&units=metric')
+        .then((res) => res.json())
+        .catch(err => {
+            console.log(err)
+            return 'ERROR'
+        })
+    }
+}
+
+export const cityOnClick = async (cities, props, city, setStateOfWaiting) => {
+    setStateOfWaiting(true)
     const typeElem = document.getElementById('type')
     const type = typeElem.options[typeElem.selectedIndex].value
-    let data;
-    if (props.city !== city || props.type !== type)
+    let data = undefined
+
+    for(const elem of props.history)
+        if (elem.city === city && elem.type === type)
+            data = elem.weatherData
+    if (data === undefined)
         data = await getWeather(cities, city, type)
-    else
-        data = props.weatherData
     if (data === 'ERROR') {
         props.changeWeather({
             type: 'ERROR',
-            payload: undefined
+            payload: {
+                history: props.history,
+                city: undefined,
+                weatherData: undefined,
+                type: undefined
+            }
         })
+        setStateOfWaiting(false)
     } else {
+        props.history.push({
+            city: city,
+            weatherData: data,
+            type: type
+        })
         props.changeWeather({
             type: "NEW_WEATHER",
             payload: {
+                history: props.history,
                 city: city,
                 weatherData: data,
-                type: type,
+                type: type
             }
         })
+        setStateOfWaiting(false)
     }
 }
 
@@ -58,12 +94,39 @@ const getLocation = () => {
     })
 }
 
-export const locationOnClick = async (props) => {
+export const locationOnClick = async (cities, props, setStateOfWaiting) => {
+    setStateOfWaiting(true)
     let location = await getLocation()
-    if(location === undefined) {
+    if(location === undefined || location.coords === undefined) {
+        console.log(location.coords)
         props.changeWeather({type: "ERROR"})
+        setStateOfWaiting(false)
+        return
     } else {
-        props.changeWeather({type: "ERROR"})
+        console.log(location.coords)
+        const typeElem = document.getElementById('type')
+        const type = typeElem.options[typeElem.selectedIndex].value
+        let obj = await getWeatherByCoords(cities, location.coords.lat, location.coords.lon, type)
+        if(obj === undefined) {
+            props.changeWeather({type: "ERROR"})
+            setStateOfWaiting(false)
+            return
+        }
+        props.history.push({
+            city: obj.name,
+            weatherData: obj.fetch,
+            type: type
+        })
+        props.changeWeather({
+            type: "NEW_WEATHER",
+            payload: {
+                history: props.history,
+                city: obj.name,
+                weatherData: obj.fetch,
+                type: type
+            }
+        })
+        setStateOfWaiting(false)
     }
 }
 
@@ -74,3 +137,4 @@ export const getReadableTime = (unix_timestamp, type) => {
     else
         return date.toLocaleDateString()
 }
+
