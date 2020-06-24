@@ -44,7 +44,7 @@ class Auto extends React.Component {
         super(props)
         this.cityNames = [ ...new Set(cities.map(obj => {
             return obj.name
-        }))]
+        }).slice(1, 5000))]
         this.state = {
             value: '',
         }

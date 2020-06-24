@@ -43,5 +43,7 @@ menu {
   display: block;
   justify-content: center;
   align-content: center;
-  justify-self: stretch;
+  justify-self: center;
+  max-height: 200px;
+  max-width: 200px;
 }
