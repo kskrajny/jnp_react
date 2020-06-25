@@ -35,7 +35,7 @@ export const send_share = async (search_term, gifs) => {
     let response = []
     for(const x of search_term) {
         let str = x.split(' ').join('-')
-        url = "https://api.tenor.com/v1/search?key=SJ17MDRHWVUF&limit=3&q=" + str
+        url = "https://api.tenor.com/v1/random?key=SJ17MDRHWVUF&limit=3&q=" + str
         let promise = await new Promise((resolve, reject) => {
             httpGetAsync(url, (res) => {
                 if (res.error === undefined) resolve(res)
