@@ -1,5 +1,5 @@
 import React from 'react';
-import { getReadableTime } from './functions'
+import { getReadableTime } from './functionsOnEvent'
 import {send_share} from "./tenorFunctions";
 import Scroll from 'react-scroll';
 
@@ -26,7 +26,12 @@ class Weather extends React.Component {
 
     render() {
         if (this.props.data.weatherData === undefined)
-            return <div className="Weather"> What do you want to see ? </div>
+            return (
+                <div className="Weather">
+                    What do you want to see ?
+                    <br/>I mean weather of course xD
+                </div>
+            )
         this.boxes = this.props.data.weatherData[this.props.data.type].map(obj => (
             <Element key={obj.dt}>
                 <p>{getReadableTime(obj.dt, this.props.data.type)}</p>

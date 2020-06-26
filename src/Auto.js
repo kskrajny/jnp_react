@@ -1,11 +1,58 @@
 import React from 'react';
 import ReactAutocomplete from 'react-autocomplete'
-import {cityOnClick, locationOnClick} from './functions';
+import {cityOnClick, locationOnClick} from './functionsOnEvent';
 import { throttle, debounce } from "throttle-debounce";
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 let cities = require('./city.list.json')
+
+let cityNames = [ ...new Set(cities.map(obj => {
+    return obj.name
+}))].sort()
+
+/* prepare structure to enhance autocomplete */
+let division = []
+let i = 0
+const diValue = 500
+while(i < cityNames.length) {
+    let lastIndex = Math.min(i+diValue, cityNames.length)
+    division.push({
+        start: cityNames[i],
+        end: cityNames[lastIndex-1],
+        table: cityNames.slice(i, lastIndex)
+    })
+    i += diValue
+}
+
+function binarySearch(value, arr) {
+    let first = 0;    //left endpoint
+    let last = arr.length - 1;   //right endpoint
+    let position = -1;
+    let found = false;
+    let middle;
+
+    while (found === false && first <= last) {
+        middle = Math.floor((first + last)/2);
+        if (arr[middle].start <= value && arr[middle].end >= value) {
+            found = true;
+            position = middle;
+        } else if (arr[middle].start > value) {
+            last = middle - 1;
+        } else {
+            first = middle + 1;
+        }
+    }
+    return position;
+}
+
+function getAutoArr(value) {
+    let pos = binarySearch(value, division)
+    let returnArr = new Array(...(division[pos].table))
+    if(division.length > pos+1)
+        returnArr.push(...(division[pos+1].table))
+    return returnArr
+}
 
 function setStateOfWaiting(bool){
     this.setState({
@@ -42,9 +89,6 @@ class Auto extends React.Component {
 
     constructor (props) {
         super(props)
-        this.cityNames = [ ...new Set(cities.map(obj => {
-            return obj.name
-        }).slice(1, 5000))]
         this.state = {
             value: '',
         }
@@ -52,11 +96,15 @@ class Auto extends React.Component {
             const value = evt.target.value
             this.handleInputDebounced({value});
         }
-        this.handleInputThrottled = throttle(200, this.setState)
-        this.handleInputDebounced = debounce(20, this.handleInputThrottled)
+        this.handleInputThrottled = throttle(30, this.setState)
+        this.handleInputDebounced = debounce(10, this.handleInputThrottled)
     }
 
     render() {
+        let autoArray = []
+        if(this.state.value.length > 1)
+            autoArray = getAutoArr(this.state.value)
+
         return (
             <div>
                 <Waiting />
@@ -71,7 +119,7 @@ class Auto extends React.Component {
                     get weather by city
                 </button>
                 <ReactAutocomplete
-                    items={this.cityNames}
+                    items={autoArray}
                     shouldItemRender={(item, value) => {
                         item = item.toLowerCase()
                         value = value.toLowerCase()
