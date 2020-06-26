@@ -2,10 +2,6 @@ const searchCityByName = (nameToSearch) => {
     return (elem) => (nameToSearch === elem.name)
 }
 
-const searchCityByCoords = (lat, lon) => {
-    return (elem) => (lat === elem.coord.lat && lon === elem.coord.lon)
-}
-
 const getWeather = async (cities, nameToSearch, type) => {
     const cityData = cities.find(searchCityByName(nameToSearch))
     const counterType = (type === 'hourly') ? 'daily' : 'hourly'
@@ -22,20 +18,16 @@ const getWeather = async (cities, nameToSearch, type) => {
         })
 }
 
-const getWeatherByCoords = async (cities, lat, lon, type) => {
-    const cityData = cities.find(searchCityByCoords(lat, lon))
+const getWeatherByCoords = async (lat, lon, type) => {
     const counterType = (type === 'hourly') ? 'daily' : 'hourly'
-    if(cityData === undefined) return undefined
-    const name = cityData.name
-    return {name: name, fetch: fetch('https://api.openweathermap.org/data/2.5/' +
+    return await fetch('https://api.openweathermap.org/data/2.5/' +
         'onecall?lat=' + lat + '&lon=' + lon + '&exclude=current,minutely,' +
         counterType + '&appid=4bf9ca8e75181f37d0ae3b94bc24c530&units=metric')
         .then((res) => res.json())
         .catch(err => {
-            console.log(err)
-            return 'ERROR'
+                console.log(err)
+                return 'ERROR'
         })
-    }
 }
 
 export const cityOnClick = async (cities, props, city, setStateOfWaiting) => {
@@ -97,32 +89,39 @@ const getLocation = () => {
 export const locationOnClick = async (cities, props, setStateOfWaiting) => {
     setStateOfWaiting(true)
     let location = await getLocation()
+/* used to test with given coords
+    test with given coords
+    let location = {}
+    location.coords = {}
+    location.coords.lon = 21
+    location.coords.lat = 52.2
+*/
     if(location === undefined || location.coords === undefined) {
         console.log(location.coords)
         props.changeWeather({type: "ERROR"})
         setStateOfWaiting(false)
         return
     } else {
-        console.log(location.coords)
         const typeElem = document.getElementById('type')
         const type = typeElem.options[typeElem.selectedIndex].value
-        let obj = await getWeatherByCoords(cities, location.coords.lat, location.coords.lon, type)
+        const name = 'lat:' + location.coords.lat + '  lon:' + location.coords.lon
+        let obj = await getWeatherByCoords(location.coords.lat, location.coords.lon, type)
         if(obj === undefined) {
             props.changeWeather({type: "ERROR"})
             setStateOfWaiting(false)
             return
         }
         props.history.push({
-            city: obj.name,
-            weatherData: obj.fetch,
+            city: name,
+            weatherData: obj,
             type: type
         })
         props.changeWeather({
             type: "NEW_WEATHER",
             payload: {
                 history: props.history,
-                city: obj.name,
-                weatherData: obj.fetch,
+                city: name,
+                weatherData: obj,
                 type: type
             }
         })

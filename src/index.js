@@ -14,7 +14,6 @@ const initialState = {
 }
 
 export const reducer = (state = initialState, action) => {
-    console.log(action.type)
     switch(action.type){
         case 'NEW_WEATHER':
             return action.payload
