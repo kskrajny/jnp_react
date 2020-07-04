@@ -1,4 +1,4 @@
-import { division } from '../consts'
+import { division } from './consts'
 
 export const getAutoArr = (value) => {
     let pos = binarySearch(value, division)

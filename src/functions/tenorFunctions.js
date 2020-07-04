@@ -1,3 +1,5 @@
+import { interval } from 'rxjs'
+
 const httpGetAsync = (theUrl, callback) => {
     let xmlHttp = new XMLHttpRequest()
     xmlHttp.onreadystatechange = function()
@@ -49,5 +51,6 @@ export const send_share = async (search_term, gifs) => {
     response = [ ...new Set(shuffle(response))]
     let change = nextGif(response)
     change()
-    setInterval(change, 30000)
+    const image$ = interval(10000)
+    image$.subscribe(() => change())
 }

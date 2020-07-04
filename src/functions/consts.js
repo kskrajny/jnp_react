@@ -1,4 +1,4 @@
-export const cities = require('./city.list.json')
+export const cities = require('../city.list.json')
 
 export const cityNames = [ ...new Set(cities.map(obj => {
     return obj.name
@@ -20,17 +20,14 @@ export const division = (() => {
     return division
 })()
 
-export const getMode = {
-    light: {
-        type: 'light',
-        style: {
+export const getMode = (mode) => {
+    if(mode === 'LIGHT') {
+        return {
             color: 'black',
             backgroundColor: 'white'
         }
-    },
-    dark: {
-        type: 'dark',
-        style: {
+    } else {
+        return {
             color: 'grey',
             backgroundColor: '#282c34'
         }

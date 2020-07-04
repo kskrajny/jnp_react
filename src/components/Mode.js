@@ -1,8 +1,8 @@
 import React from "react";
 
-const Mode = ({modeType, changeMode}) => (
+const Mode = ({mode, changeMode}) => (
     <div className='Mode'>
-        <button onClick={() => {changeMode(modeType)}}>Change mode</button>
+        <button onClick={() => {changeMode(mode)}}>Change mode</button>
     </div>
 )
 

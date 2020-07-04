@@ -1,5 +1,5 @@
 export const modeAction = modeType => {
-    let type = (modeType === 'light') ? 'DARK' : 'LIGHT'
+    let type = (modeType === 'LIGHT') ? 'DARK' : 'LIGHT'
     return { type }
 }
 
@@ -14,7 +14,7 @@ export const loadAction = loading => ({
 })
 
 export const nameAction = data => {
-    if(data === 'ERROR') return {}
+    if(data === 'ERROR') return {type: 'ERROR'}
     return {
         type: 'NEW_FORECAST',
         data: data
@@ -22,7 +22,7 @@ export const nameAction = data => {
 }
 
 export const locAction = data => {
-    if(data === 'ERROR') return {}
+    if(data === 'ERROR') return {type: 'ERROR'}
     return {
         type: 'NEW_FORECAST',
         data: data

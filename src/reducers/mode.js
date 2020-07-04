@@ -1,11 +1,9 @@
-import { getMode } from '../consts'
-
-export const mode = (state = getMode.dark, action) => {
+export const mode = (state = 'DARK', action) => {
     switch(action.type){
         case 'DARK':
-            return getMode.dark
+            return action.type
         case 'LIGHT':
-            return getMode.light
+            return action.type
         default:
             return state
     }

@@ -96,7 +96,7 @@ const getData = state => {
         descOfWet.push('pusty')
     send_share(descOfWet)
     return {
-        weatherComment,
+        weatherComment: weatherComment,
         avgTemp: avgTemp.toFixed(2),
         minTemp: minTemp.toFixed(2),
         maxTemp: maxTemp.toFixed(2)

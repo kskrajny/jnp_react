@@ -1,4 +1,4 @@
-import { initialForecastState } from '../consts'
+import { initialForecastState } from '../functions/consts'
 
 export const forecast = (state = initialForecastState, action) => {
     switch(action.type){

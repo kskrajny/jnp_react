@@ -1,14 +1,15 @@
-import React from "react";
-import Forecast from '../containers/Forecast';
-import Menu from './Menu';
-import '../stylesheets/App.css';
+import React from "react"
+import Forecast from '../containers/Forecast'
+import Menu from './Menu'
+import AppStyle from '../style/AppStyle'
+import TenorStyle from '../style/TenorStyle'
 
-const App = ({style}) => (
-    <div className='App' style={style}>
+const App = ({mode}) => (
+    <AppStyle mode={mode}>
         <Menu />
-        <img id="tenor" alt=""/>
+        <TenorStyle id='tenor' alt=''/>
         <Forecast />
-    </div>
+    </AppStyle>
 )
 
 export default App
