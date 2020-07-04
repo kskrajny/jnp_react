@@ -13,7 +13,6 @@ const Menu = () => (
                 <option value="daily">7/d</option>
         </select>
         <Search />
-        <img id="tenor" alt=""/>
         <Auto />
     </div>
 )

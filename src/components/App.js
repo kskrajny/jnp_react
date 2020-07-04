@@ -6,6 +6,7 @@ import '../stylesheets/App.css';
 const App = ({style}) => (
     <div className='App' style={style}>
         <Menu />
+        <img id="tenor" alt=""/>
         <Forecast />
     </div>
 )

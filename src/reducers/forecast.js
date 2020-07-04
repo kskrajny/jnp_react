@@ -10,6 +10,6 @@ export const forecast = (state = initialForecastState, action) => {
                 weatherData: action.data.weatherData
             }
         default:
-            return initialForecastState
+            return state
     }
 }
