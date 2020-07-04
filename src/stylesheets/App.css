@@ -8,7 +8,7 @@
   grid-template-rows: 100px 200px 1fr 100px;
 }
 
-menu {
+.Menu {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
   display: flex;
@@ -19,7 +19,7 @@ menu {
   padding: 0;
 }
 
-.Weather {
+.Forecast {
   grid-column: 3 / 4;
   grid-row: 2 / 4;
   display: flex;
@@ -44,4 +44,11 @@ menu {
   justify-self: center;
   max-height: 200px;
   max-width: 200px;
+}
+
+#boxesContainer {
+  position: relative;
+  height: 200px;
+  overflow: scroll;
+  marginBottom: 100px;
 }
