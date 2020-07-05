@@ -11,12 +11,13 @@ import AppStyle from "./components/appstyle";
 const App = ({mode}) => (
     <ThemeProvider theme={theme}>
         <AppStyle mode={mode}>
-            <Menu />
-            <Tenor />
-            <Forecast />
+            <Menu/>
+            <Tenor/>
+            <Forecast/>
         </AppStyle>
     </ThemeProvider>
 )
+
 
 const mapStateToProps = state => ({
     mode: selectorMode(state)

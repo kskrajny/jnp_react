@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux-immutable';
 import forecast from './containers/app/containers/forecast/reducer'
 import mode from './containers/app/components/menu/containers/mode/reducer'
 import autocomplete from './containers/app/components/menu/containers/autocomplete/reducer'

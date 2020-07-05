@@ -5,7 +5,8 @@ import {selectorMode} from "./selector";
 
 const Mode = ({mode, changeMode}) => (
     <div className='Mode'>
-        <button onClick={() => {changeMode(mode)}}>Change mode</button>
+        <button onClick={() => {changeMode(mode)}}>Change mode
+        </button>
     </div>
 )
 

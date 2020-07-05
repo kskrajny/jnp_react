@@ -31,7 +31,7 @@ const Autocomplete = ({auto, changeAutoArray}) => (
 )
 
 const mapStateToProps = state => ({
-    auto: selectorAuto(state),
+    auto: selectorAuto(state)
 })
 
 const mapDispatchToProps = dispatch => ({
