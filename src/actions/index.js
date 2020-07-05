@@ -19,10 +19,3 @@ export const nameAction = history => {
         history: history
     }
 }
-
-export const locAction = history => {
-    return {
-        type: 'NEW_FORECAST_LOC_EPIC',
-        history: history
-    }
-}
