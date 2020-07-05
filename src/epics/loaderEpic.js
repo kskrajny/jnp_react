@@ -13,7 +13,13 @@ const loaderEpic2 = action$ => action$.pipe(
     map(action => loadAction(false))
 )
 
+const loaderEpic3 = action$ => action$.pipe(
+    ofType('ERROR'),
+    map(action => loadAction(false))
+)
+
 export default combineEpics(
     loaderEpic1,
-    loaderEpic2
+    loaderEpic2,
+    loaderEpic3
 )

@@ -11,5 +11,6 @@ export const getForecast = async (history) => {
             weatherData = elem.weatherData
     if (weatherData === undefined)
         weatherData = await getWeatherFromApi(city, type)
+    if(weatherData === 'ERROR') return {type: 'ERROR'}
     return await toForecastAndTenor({ history, city, weatherData, type })
 }

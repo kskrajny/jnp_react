@@ -19,10 +19,4 @@ export const handleTenorImages = async (search_term) => {
     }
     response = response.map(obj => obj.media[0]['tinygif'].url)
     return [ ...new Set(shuffle(response))]
-    /*
-    let change = setNextGif(response)
-    change()
-    const image$ = interval(10000)
-    image$.subscribe(() => change())
-    */
 }

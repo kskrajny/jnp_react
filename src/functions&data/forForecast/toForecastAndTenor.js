@@ -3,6 +3,7 @@ import {getBoxes} from "./getBoxes";
 
 export const toForecastAndTenor = async (pack) => {
     let data = await getTempsCommentImages(pack)
+    if(data === 'ERROR') return {type: 'ERROR'}
     return {
         type: 'NEW_FORECAST_TENOR',
         payloadForecast: {

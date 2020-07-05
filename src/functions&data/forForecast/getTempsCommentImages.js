@@ -59,6 +59,7 @@ export const getTempsCommentImages = async pack => {
     if (descOfWet.len === 0)
         descOfWet.push('pusty')
     let images = await handleTenorImages(descOfWet)
+    if(images === 'ERROR') return 'ERROR'
     return {
         images: images,
         comment: weatherComment,
