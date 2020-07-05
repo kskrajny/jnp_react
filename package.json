@@ -19,6 +19,7 @@
     "reselect": "^4.0.0",
     "rxjs": "^6.6.0",
     "styled-components": "^5.1.1",
+    "styled-tools": "^1.7.2",
     "throttle-debounce": "^2.2.1"
   },
   "scripts": {
