@@ -1,6 +1,6 @@
 import React from "react"
-import Forecast from '../containers/Forecast'
-import Tenor from '../containers/Tenor'
+import Forecast from '../containers+selectors/Forecast'
+import Tenor from '../containers+selectors/Tenor'
 import Menu from './Menu'
 import AppStyle from '../style/AppStyle'
 

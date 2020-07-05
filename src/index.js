@@ -6,7 +6,7 @@ import { createEpicMiddleware } from 'redux-observable';
 import * as serviceWorker from './serviceWorker';
 import rootEpic from './epics';
 import rootReducer from './reducers';
-import App from './containers/App';
+import App from './containers+selectors/App';
 
 const epicMiddleware = createEpicMiddleware();
 

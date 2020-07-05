@@ -1,10 +1,10 @@
 import React from "react";
 import TenorStyle from "../style/TenorStyle";
 
-const Tenor = ({images, current}) => {
-    if(current === undefined || images.length === 0)
+const Tenor = ({tenor}) => {
+    if(tenor.current === undefined || tenor.images.length === 0)
         return <TenorStyle alt=''/>
-    return <TenorStyle src={images[current]} alt=''/>
+    return <TenorStyle src={tenor.images[tenor.current]} alt=''/>
 }
 
 export default Tenor

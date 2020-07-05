@@ -6,8 +6,8 @@ import Box from '../style/Box'
 
 const Element = Scroll.Element
 
-const Forecast = ({ city, comment, temps, boxes }) => {
-    if(city === undefined)
+const Forecast = ({ forecast }) => {
+    if(forecast.city === undefined)
         return (
             <ForecastStyle>
                 <p> Hope to see sunny weather </p>
@@ -15,16 +15,16 @@ const Forecast = ({ city, comment, temps, boxes }) => {
         )
     return (
         <ForecastStyle>
-            <p>Weather in {city}</p>
-            <p>{comment}</p>
+            <p>Weather in {forecast.city}</p>
+            <p>{forecast.comment}</p>
             <TempStyle>
-                avg:{temps.avgTemp}<sup>o</sup>C
-                min:{temps.minTemp}<sup>o</sup>C
-                max:{temps.maxTemp}<sup>o</sup>C
+                avg:{forecast.temps.avgTemp}<sup>o</sup>C
+                min:{forecast.temps.minTemp}<sup>o</sup>C
+                max:{forecast.temps.maxTemp}<sup>o</sup>C
             </TempStyle>
             <Box>
                 <Element id="boxesContainer">
-                    {boxes}
+                    {forecast.boxes}
                 </Element>
             </Box>
         </ForecastStyle>

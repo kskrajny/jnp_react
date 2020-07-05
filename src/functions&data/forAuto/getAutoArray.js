@@ -1,6 +1,7 @@
 import { cities } from '../cities'
 
 export const getAutoArr = (value) => {
+    if(value.length < 2) return []
     let pos = binarySearch(value, division)
     let returnArr = new Array(...(division[pos].table))
     if(division.length > pos+1)

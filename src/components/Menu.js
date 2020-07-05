@@ -1,8 +1,8 @@
 import React from 'react'
-import Auto from '../containers/Auto'
-import Mode from '../containers/Mode'
-import Spin from '../containers/Spin'
-import Search from '../containers/Search'
+import Auto from '../containers+selectors/Auto'
+import Mode from '../containers+selectors/Mode'
+import Spin from '../containers+selectors/Spin'
+import Search from '../containers+selectors/Search'
 import MenuStyle from '../style/MenuStyle'
 
 const Menu = () => (

@@ -2,10 +2,10 @@ import React from 'react';
 import ReactAutocomplete from 'react-autocomplete'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
-const Auto = ({input, autoArray, changeAutoArray}) => (
+const Auto = ({auto, changeAutoArray}) => (
     <div className='Auto'>
         <ReactAutocomplete
-            items={autoArray}
+            items={auto.arr}
             shouldItemRender={(item, value) => {
                 item = item.toLowerCase()
                 value = value.toLowerCase()
@@ -20,7 +20,7 @@ const Auto = ({input, autoArray, changeAutoArray}) => (
                     {item}
                 </div>
             }
-            value={input}
+            value={auto.input}
             onChange={event => changeAutoArray(event.target.value)}
             onSelect={input => changeAutoArray(input)}
         />
