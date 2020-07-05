@@ -1,4 +1,4 @@
-import { division } from './consts'
+import { cities } from '../cities'
 
 export const getAutoArr = (value) => {
     let pos = binarySearch(value, division)
@@ -28,3 +28,23 @@ const binarySearch = (value, arr) => {
     }
     return position;
 }
+
+const cityNames = [ ...new Set(cities.map(obj => {
+    return obj.name
+}))].sort()
+
+const division = (() => {
+    let division = []
+    let i = 0
+    const diValue = 500
+    while (i < cityNames.length) {
+        let lastIndex = Math.min(i + diValue, cityNames.length)
+        division.push({
+            start: cityNames[i],
+            end: cityNames[lastIndex - 1],
+            table: cityNames.slice(i, lastIndex)
+        })
+        i += diValue
+    }
+    return division
+})()

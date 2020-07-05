@@ -1,43 +1,7 @@
-import React from "react";
-import Scroll from "react-scroll";
-import {send_share} from "./tenorFunctions";
-const Element = Scroll.Element;
+import {handleTenorImages} from "../forTenor/handleTenorImages";
 
-export const getForecastState = (state) => ({
-    city: getCity(state),
-    boxes: getBoxes(state),
-    data: getData(state)
-})
-
-
-const getCity = state => {
-    return (state.weatherData === undefined) ? undefined : state.city;
-}
-
-const getBoxes = state => {
-    if(state.weatherData === undefined) return undefined
-    return state.weatherData[state.type].map(obj => (
-        <Element key={obj.dt}>
-            <p>{getReadableTime(obj.dt, state.type)}</p>
-            <img src={getUrl(obj)} alt="icon"/>
-        </Element>
-    ))
-}
-
-export const getUrl = (obj) => {
-    return 'http://openweathermap.org/img/wn/'+obj.weather[0].icon+'@2x.png'
-}
-
-const getReadableTime = (unix_timestamp, type) => {
-    const date = new Date(unix_timestamp * 1000)
-    if(type === 'hourly')
-        return date.toLocaleTimeString()
-    else
-        return date.toLocaleDateString()
-}
-
-const getData = state => {
-    if(state.weatherData === undefined) return undefined
+export const getTempsCommentImages = async pack => {
+    if(pack.weatherData === undefined) return undefined
     /* check if weather will be nice */
     /* points */
     let rain = 1
@@ -52,10 +16,10 @@ const getData = state => {
     /* descriptions of weather */
     let descOfWet = []
     // eslint-disable-next-line
-    state.weatherData[state.type].map(obj => {
+    pack.weatherData[pack.type].map(obj => {
         if (obj.weather[0].main === 'Rain') rain = 0
         descOfWet.push(obj.weather[0].description)
-        if (state.type === 'hourly') {
+        if (pack.type === 'hourly') {
             let t = parseFloat(obj.temp)
             if (t < 15 || t > 30) temp = 0
             sumTemp += t
@@ -63,7 +27,7 @@ const getData = state => {
             minTemp = (minTemp > t) ? t : minTemp
             maxTemp = (maxTemp < t) ? t : maxTemp
         }
-        if (state.type === 'daily') {
+        if (pack.type === 'daily') {
             let tMin = parseFloat(obj.temp.min)
             let tMax = parseFloat(obj.temp.max)
             let tDay = parseFloat(obj.temp.day)
@@ -94,11 +58,13 @@ const getData = state => {
     descOfWet = [...new Set(descOfWet)]
     if (descOfWet.len === 0)
         descOfWet.push('pusty')
-    send_share(descOfWet)
+    await handleTenorImages(descOfWet)
     return {
-        weatherComment: weatherComment,
-        avgTemp: avgTemp.toFixed(2),
-        minTemp: minTemp.toFixed(2),
-        maxTemp: maxTemp.toFixed(2)
+        comment: weatherComment,
+        temps: {
+            avgTemp: avgTemp.toFixed(2),
+            minTemp: minTemp.toFixed(2),
+            maxTemp: maxTemp.toFixed(2)
+        }
     }
 }

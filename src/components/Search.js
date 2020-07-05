@@ -1,17 +1,11 @@
 import React from "react"
-import { locationOnClick } from '../functions/locationFunctions'
-import { cityOnClick } from '../functions/searchByNameFunctions'
 
-const Search = ({wait, onLoc, onName, history}) => (
+const Search = ({ onLoc, onName, history}) => (
     <div className='Search'>
-        <button onClick={() => {
-            locationOnClick(onLoc, wait)
-        }}>
+        <button onClick={() => onLoc(history)}>
             get weather by location
         </button>
-        <button id='getByCity' onClick={() => {
-            cityOnClick(history, onName, wait)
-        }}>
+        <button id='getByCity' onClick={() => onName(history)}>
             get weather by city
         </button>
     </div>

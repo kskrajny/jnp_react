@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { getMode } from '../functions/consts'
 
 const AppStyle = styled.div`
     text-align: center;
@@ -14,3 +13,17 @@ const AppStyle = styled.div`
 `
 
 export default AppStyle
+
+const getMode = (mode) => {
+    if(mode === 'LIGHT') {
+        return {
+            color: 'black',
+            backgroundColor: 'white'
+        }
+    } else {
+        return {
+            color: 'grey',
+            backgroundColor: '#282c34'
+        }
+    }
+}

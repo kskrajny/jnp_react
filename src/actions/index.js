@@ -1,6 +1,6 @@
 export const modeAction = modeType => {
     let type = (modeType === 'LIGHT') ? 'DARK' : 'LIGHT'
-    return { type }
+    return { type: type }
 }
 
 export const autoAction = input => ({
@@ -13,18 +13,16 @@ export const loadAction = loading => ({
     payload: loading
 })
 
-export const nameAction = data => {
-    if(data === 'ERROR') return {type: 'ERROR'}
+export const nameAction = history => {
     return {
-        type: 'NEW_FORECAST',
-        data: data
+        type: 'NEW_FORECAST_NAME_EPIC',
+        history: history
     }
 }
 
-export const locAction = data => {
-    if(data === 'ERROR') return {type: 'ERROR'}
+export const locAction = history => {
     return {
-        type: 'NEW_FORECAST',
-        data: data
+        type: 'NEW_FORECAST_LOC_EPIC',
+        history: history
     }
 }

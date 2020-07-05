@@ -1,9 +1,11 @@
 import { connect } from 'react-redux'
 import Forecast from '../components/Forecast'
-import { getForecastState } from '../functions/getForecastState'
 
 const mapStateToProps = (state) => ({
-    forecastState: getForecastState(state.forecast)
+    city: state.forecast.city,
+    comment: state.forecast.comment,
+    temps: state.forecast.temps,
+    boxes: state.forecast.boxes
 })
 
 const mapDispatchToProps = dispatch => ({})

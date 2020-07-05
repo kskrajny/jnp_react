@@ -3,10 +3,11 @@ import Scroll from "react-scroll"
 import ForecastStyle from '../style/ForecastStyle'
 import TempStyle from '../style/TempStyle'
 import Box from '../style/Box'
+
 const Element = Scroll.Element
 
-const Forecast = ({forecastState}) => {
-    if(forecastState.data === undefined)
+const Forecast = ({ city, comment, temps, boxes }) => {
+    if(city === undefined)
         return (
             <ForecastStyle>
                 <p> Hope to see sunny weather </p>
@@ -14,16 +15,16 @@ const Forecast = ({forecastState}) => {
         )
     return (
         <ForecastStyle>
-            <p>Weather in {forecastState.city}</p>
-            <p>{forecastState.data.weatherComment}</p>
+            <p>Weather in {city}</p>
+            <p>{comment}</p>
             <TempStyle>
-                avg:{forecastState.data.avgTemp}<sup>o</sup>C
-                min:{forecastState.data.minTemp}<sup>o</sup>C
-                max:{forecastState.data.maxTemp}<sup>o</sup>C
+                avg:{temps.avgTemp}<sup>o</sup>C
+                min:{temps.minTemp}<sup>o</sup>C
+                max:{temps.maxTemp}<sup>o</sup>C
             </TempStyle>
             <Box>
                 <Element id="boxesContainer">
-                    {forecastState.boxes}
+                    {boxes}
                 </Element>
             </Box>
         </ForecastStyle>

@@ -1,0 +1,1 @@
+export const cities = require('./city.list.json')

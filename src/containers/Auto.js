@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Auto from '../components/Auto'
-import { getAutoArr } from '../functions/getAutoArray';
+import { getAutoArr } from '../functions&data/forAuto/getAutoArray';
 import { autoAction } from '../actions'
 
 const mapStateToProps = state => ({
