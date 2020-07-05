@@ -1,5 +1,5 @@
 import { getWeatherFromApi } from './getWeatherFromApi';
-import { toForecastState } from "./toForecastState";
+import { toForecastAndTenor } from "./toForecastAndTenor";
 
 export const getForecast = async (history) => {
     const city = document.querySelector('input').value
@@ -11,5 +11,5 @@ export const getForecast = async (history) => {
             weatherData = elem.weatherData
     if (weatherData === undefined)
         weatherData = await getWeatherFromApi(city, type)
-    return await toForecastState({ history, city, weatherData, type })
+    return await toForecastAndTenor({ history, city, weatherData, type })
 }

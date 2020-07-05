@@ -1,17 +1,20 @@
-import React from "react";
 import {getTempsCommentImages} from "./getTempsCommentImages";
 import {getBoxes} from "./getBoxes";
 
-export const toForecastState = async (pack) => {
+export const toForecastAndTenor = async (pack) => {
     let data = await getTempsCommentImages(pack)
     return {
-        type: 'NEW_FORECAST',
-        payload: {
+        type: 'NEW_FORECAST_TENOR',
+        payloadForecast: {
             city: pack.city,
             type: pack.type,
             boxes: getBoxes(pack),
             temps: data.temps,
             comment: data.comment
+        },
+        payloadTenor: {
+            images: data.images,
+            current: 0
         }
     }
 }

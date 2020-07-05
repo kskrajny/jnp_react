@@ -1,5 +1,3 @@
-import { interval } from 'rxjs'
-import {setNextGif} from "./setNextGif";
 import {httpGetAsync} from "./httpGetAsync";
 import {shuffle} from "./shuffle";
 
@@ -19,9 +17,12 @@ export const handleTenorImages = async (search_term) => {
             return 'ERROR'
         response = response.concat(promise.results)
     }
-    response = [ ...new Set(shuffle(response))]
+    response = response.map(obj => obj.media[0]['tinygif'].url)
+    return [ ...new Set(shuffle(response))]
+    /*
     let change = setNextGif(response)
     change()
     const image$ = interval(10000)
     image$.subscribe(() => change())
+    */
 }

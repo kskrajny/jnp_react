@@ -58,8 +58,9 @@ export const getTempsCommentImages = async pack => {
     descOfWet = [...new Set(descOfWet)]
     if (descOfWet.len === 0)
         descOfWet.push('pusty')
-    await handleTenorImages(descOfWet)
+    let images = await handleTenorImages(descOfWet)
     return {
+        images: images,
         comment: weatherComment,
         temps: {
             avgTemp: avgTemp.toFixed(2),
