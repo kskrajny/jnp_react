@@ -1,23 +1,19 @@
-import {getTempsCommentImages} from "./getTempsCommentImages";
-import {getBoxes} from "./getBoxes";
+import {getTempsCommentImages} from "./getDataFromApiResponse/getTempsCommentImages";
+import {getBoxes} from "./getDataFromApiResponse/getBoxes";
 
-export const toForecastAndTenor = async (pack) => {
+export const fromWeatherDataToNEW_FORECAST = async (pack) => {
     let data = await getTempsCommentImages(pack)
     if(data === 'ERROR') return {type: 'ERROR'}
     return {
-        type: 'NEW_FORECAST_TENOR',
+        type: 'NEW_FORECAST',
         isNew: true,
-        payloadForecast: {
+        payload: {
             city: pack.city,
             type: pack.type,
             boxes: getBoxes(pack),
             temps: data.temps,
             comment: data.comment,
             images: data.images
-        },
-        payloadTenor: {
-            size: data.images.length,
-            current: 0
         }
     }
 }

@@ -1,4 +1,4 @@
-import {handleTenorImages} from "../forTenor/handleTenorImages";
+import {handleTenorImages} from "./handleImages/handleTenorImages";
 
 export const getTempsCommentImages = async pack => {
     if(pack.weatherData === undefined) return undefined

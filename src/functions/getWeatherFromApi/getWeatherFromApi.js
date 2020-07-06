@@ -1,4 +1,4 @@
-import { cities } from '../../../../../../const'
+import { cities } from '../../const'
 
 export const getWeatherFromApi = async (nameToSearch, type) => {
     const cityData = cities.find((elem) => (nameToSearch === elem.name))
