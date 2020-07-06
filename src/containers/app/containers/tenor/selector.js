@@ -1,8 +1,10 @@
 import {createSelector} from "reselect";
 
-const getTenor = state => state.toJS().tenor
+const getTenor = state => state.get('tenor')
+const getImages = state => state.get('forecast').get('images')
 
 export const selectorTenor = createSelector(
-    [getTenor],
-    tenor => tenor
+    getTenor,
+    getImages,
+    (tenor, images) => (images[tenor%images.length])
 )

@@ -9,7 +9,7 @@ import {selectorForecast} from "./selector";
 const Element = Scroll.Element
 
 const Forecast = ({ forecast }) => {
-    if(forecast.city === undefined)
+    if(forecast.get('city') === undefined)
         return (
             <ForecastStyle>
                 <p> Hope to see sunny weather </p>
@@ -17,16 +17,16 @@ const Forecast = ({ forecast }) => {
         )
     return (
         <ForecastStyle>
-            <p>Weather in {forecast.city}</p>
-            <p>{forecast.comment}</p>
+            <p>Weather in {forecast.get('city')}</p>
+            <p>{forecast.get('comment')}</p>
             <TempStyle>
-                avg:{forecast.temps.avgTemp}<sup>o</sup>C
-                min:{forecast.temps.minTemp}<sup>o</sup>C
-                max:{forecast.temps.maxTemp}<sup>o</sup>C
+                avg:{forecast.get('temps').avgTemp}<sup>o</sup>C
+                min:{forecast.get('temps').minTemp}<sup>o</sup>C
+                max:{forecast.get('temps').maxTemp}<sup>o</sup>C
             </TempStyle>
             <BoxStyle>
                 <Element id="boxesContainer">
-                    {forecast.boxes}
+                    {forecast.get('boxes')}
                 </Element>
             </BoxStyle>
         </ForecastStyle>

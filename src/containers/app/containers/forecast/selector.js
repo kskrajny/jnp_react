@@ -1,6 +1,6 @@
 import {createSelector} from "reselect"
 
-const getForecast = state => state.toJS().forecast
+const getForecast = state => state.get('forecast')
 
 export const selectorForecast = createSelector(
     [getForecast],

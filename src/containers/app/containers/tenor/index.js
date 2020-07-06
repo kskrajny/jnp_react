@@ -3,14 +3,12 @@ import {connect} from "react-redux";
 import TenorStyle from "./components/tenorstyle";
 import {selectorTenor} from "./selector";
 
-const Tenor = ({tenor}) => {
-    if(tenor.current === undefined || tenor.images.length === 0)
-        return <TenorStyle alt=''/>
-    return <TenorStyle src={tenor.images[tenor.current]} alt=''/>
-}
+const Tenor = ({image}) => (
+    <TenorStyle src={image} alt=''/>
+)
 
 const mapStateToProps = state => ({
-    tenor: selectorTenor(state)
+    image: selectorTenor(state)
 })
 
 const mapDispatchToProps = dispatch => ({})

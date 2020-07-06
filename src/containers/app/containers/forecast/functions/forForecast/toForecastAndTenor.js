@@ -6,15 +6,17 @@ export const toForecastAndTenor = async (pack) => {
     if(data === 'ERROR') return {type: 'ERROR'}
     return {
         type: 'NEW_FORECAST_TENOR',
+        isNew: true,
         payloadForecast: {
             city: pack.city,
             type: pack.type,
             boxes: getBoxes(pack),
             temps: data.temps,
-            comment: data.comment
+            comment: data.comment,
+            images: data.images
         },
         payloadTenor: {
-            images: data.images,
+            size: data.images.length,
             current: 0
         }
     }

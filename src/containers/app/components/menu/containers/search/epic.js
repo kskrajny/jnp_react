@@ -2,7 +2,7 @@ import { combineEpics } from 'redux-observable';
 import { ofType } from 'redux-observable'
 import { from, of } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
-import { getForecast } from "./functions/forForecast/getForecast";
+import { getForecast } from "../../../../containers/forecast/functions/forForecast/getForecast";
 
 const nameEpic1 = action$ => action$.pipe(
     ofType('NEW_FORECAST_NAME_EPIC'),
@@ -13,6 +13,7 @@ const nameEpic2 = action$ => action$.pipe(
     ofType('NEW_FORECAST_TENOR'),
     switchMap(action => of({
         type: 'NEW_FORECAST',
+        isNew: action.isNew,
         payload: action.payloadForecast
     }))
 )

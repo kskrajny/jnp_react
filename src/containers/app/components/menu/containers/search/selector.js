@@ -1,6 +1,6 @@
 import {createSelector} from "reselect"
 
-const getHistory = state => state.toJS().forecast.history
+const getHistory = state => state.get('forecast').get('history')
 
 export const selectorHistory = createSelector(
     [getHistory],
