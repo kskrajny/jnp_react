@@ -2,11 +2,11 @@ import React from "react"
 import {connect} from "react-redux";
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../../themes';
-import Forecast from './containers/forecast'
-import Tenor from './containers/tenor'
+import Forecast from '../forecast'
+import Tenor from '../tenor'
 import Menu from './components/menu'
-import {selectorMode} from "./selector";
 import AppStyle from "./components/appstyle";
+import {selectorMode} from "./selector";
 
 const App = ({mode}) => (
     <ThemeProvider theme={theme}>

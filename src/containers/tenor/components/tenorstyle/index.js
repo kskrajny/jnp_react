@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Index = styled.img`
+const TenorStyle = styled.img`
     grid-column: 2 / 3;
     grid-row: 3 / 4;
     margin-left: auto;
@@ -9,4 +9,4 @@ const Index = styled.img`
     max-width: 200px;
 `
 
-export default Index
+export default TenorStyle

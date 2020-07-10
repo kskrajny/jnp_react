@@ -1,10 +1,10 @@
 import React from 'react'
-import Autocomplete from './containers/autocomplete'
-import Mode from './containers/mode'
-import Loader from './containers/loader'
-import Search from './containers/search'
-import MenuStyle from './components/menustyle'
-import Duration from './components/duration'
+import Autocomplete from '../../../autocomplete'
+import Mode from '../../../mode'
+import Loader from '../../../loader'
+import Search from '../../../search'
+import MenuStyle from '../menustyle'
+import Duration from '../duration'
 
 const Menu = () => (
     <MenuStyle>

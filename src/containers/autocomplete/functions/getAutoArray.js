@@ -1,4 +1,4 @@
-import { cities } from '../../../../../../../const'
+import { cities } from '../../../const'
 
 export const getAutoArr = (value) => {
     if(value.length < 2) return []
