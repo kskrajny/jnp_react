@@ -8,7 +8,7 @@
     "chai": "^4.2.0",
     "immutable": "^4.0.0-rc.12",
     "mocha": "^8.0.1",
-    "mocha-webdriver": "^0.2.8",
+    "mocha-webdriver": "^0.3.4",
     "react": "^16.13.1",
     "react-autocomplete": "^1.8.1",
     "react-dom": "^16.13.1",
